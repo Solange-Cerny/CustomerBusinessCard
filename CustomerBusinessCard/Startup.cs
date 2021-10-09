@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using CustomerBusinessCard.Data;
 
 namespace CustomerBusinessCard
 {
@@ -26,6 +28,9 @@ namespace CustomerBusinessCard
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<CustomerBusinessCardContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("CustomerBusinessCardContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
