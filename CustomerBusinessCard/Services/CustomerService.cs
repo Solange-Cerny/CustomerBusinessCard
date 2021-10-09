@@ -11,6 +11,11 @@ namespace CustomerBusinessCard.Services
     {
         private readonly CustomerBusinessCardContext _dbContext;
 
+        public CustomerService(CustomerBusinessCardContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public async Task<string> GetCustomer(int id)
         {
             var name = await _dbContext.Customer.Where(c => c.Id == id).Select(d => d.FullName).FirstOrDefaultAsync();

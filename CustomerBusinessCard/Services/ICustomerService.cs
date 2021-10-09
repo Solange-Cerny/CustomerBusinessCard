@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CustomerBusinessCard.Services
 {
-    interface ICustomerService
+    public interface ICustomerService
     {
         Task<string> GetCustomer(int id);
         Task<Customer> GetCustomerDetails(int id);

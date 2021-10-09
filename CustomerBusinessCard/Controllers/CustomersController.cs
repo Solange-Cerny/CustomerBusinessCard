@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CustomerBusinessCard.Data;
 using CustomerBusinessCard.Models;
+using CustomerBusinessCard.Services;
 
 namespace CustomerBusinessCard.Controllers
 {
@@ -14,32 +15,32 @@ namespace CustomerBusinessCard.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly CustomerBusinessCardContext _context;
+        private readonly ICustomerService _service;
 
-        public CustomersController(CustomerBusinessCardContext context)
+        public CustomersController(ICustomerService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: api/Customers/5
-        [HttpGet("{id}")]
+        [HttpGet("GetCustomer/{id}")]
         public async Task<ActionResult<string>> GetCustomer(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
+            string fullName = await _service.GetCustomer(id);
 
-            if (customer == null)
+            if (string.IsNullOrWhiteSpace(fullName))
             {
                 return NotFound();
             }
 
-            return customer.FullName;
+            return fullName;
         }
 
-        // GET: api/Customers/5
-        [HttpGet("{id}")]
+        // GET: api/GetCustomerDetails/5
+        [HttpGet("GetCustomerDetails/{id}")]
         public async Task<ActionResult<Customer>> GetCustomerDetails(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
+            var customer = await _service.GetCustomerDetails(id);
 
             if (customer == null)
             {

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CustomerBusinessCard.Data;
+using CustomerBusinessCard.Services;
 
 namespace CustomerBusinessCard
 {
@@ -31,6 +32,7 @@ namespace CustomerBusinessCard
 
             services.AddDbContext<CustomerBusinessCardContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("CustomerBusinessCardContext")));
+            services.AddScoped<ICustomerService, CustomerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
